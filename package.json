@@ -1,0 +1,21 @@
+{
+  "name": "back_kotlin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "pg-promise": "^10.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "walter medina",
+  "license": "MIT"
+}
