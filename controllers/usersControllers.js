@@ -30,7 +30,9 @@ module.exports={
             return res.status(201).json({
                 success:true,
                 message:'registro exitoso',
-                data:data.id
+                data:{
+                    'id':data.id
+                }
 
             });           
 

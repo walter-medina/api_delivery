@@ -1,7 +1,7 @@
 //CREANDO  EL SERVIDOR EN NODE CON EXPRESS
 const express=require('express');//otra manera de importar expres
 //import express from "express";//forma actual
-const logger=require('morgan');
+const morgan=require('morgan');//para que me muestre en consola informacion
 const cors=require('cors');
 const http=require('http');
 const app=express();
@@ -14,7 +14,7 @@ const users=require('./routes/usersRoutes');
 
 const port=process.env.PORT || 3000;//creando el puerto por donde vamos a escuchar
 //librerías que usa app
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());//parcear respuestas en formato json
 app.use(express.urlencoded({
     extended:true
@@ -27,10 +27,13 @@ app.set('port',port);
 //llamando a las rutas:
 users(app);
 
-server.listen(3000,'192.168.10.17'|| 'localhost',function(){
+server.listen(3000,'192.168.10.11'|| 'localhost',function(){
     console.log("aplicacion de nodejs " + port + " iniciada");
 
 });
+/*server.listen(app.get('port'),()=>{
+    console.log(`Servidor corriendo en el puerto ${app.get('port')}`);
+})*/
 
 
 //manejo de errores:
