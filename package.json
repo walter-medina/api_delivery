@@ -4,11 +4,15 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
     "pg-promise": "^10.11.1"
   },
   "devDependencies": {
@@ -17,8 +21,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev":"nodemon server.js"
-   
+    "dev": "nodemon server.js"
   },
   "author": "walter medina",
   "license": "MIT"

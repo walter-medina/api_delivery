@@ -11,6 +11,9 @@ const server=http.createServer(app);
 const users=require('./routes/usersRoutes');
 //const User = require('./models/user');
 
+//exportando el passport para usar jwt
+const passport=require('passport')
+
 
 const port=process.env.PORT || 3000;//creando el puerto por donde vamos a escuchar
 //librerías que usa app
@@ -21,13 +24,17 @@ app.use(express.urlencoded({
 
 }));
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
 app.disable('x-powered-by');
 app.set('port',port);
 
 //llamando a las rutas:
 users(app);
 
-server.listen(3000,'192.168.10.11'|| 'localhost',function(){
+server.listen(8080,'10.142.11.251'|| 'localhost',function(){
     console.log("aplicacion de nodejs " + port + " iniciada");
 
 });

@@ -1,4 +1,7 @@
 const User=require('../models/user');
+const bcript=require('bcryptjs');
+const jwt=require('jsonwebtoken');
+const keys=require('../config/keys');
 // aque hago los diferentes métodos, logica de la aplicacion
 module.exports={
 
@@ -22,6 +25,7 @@ module.exports={
 
     },
 
+    //registrar usuarios en la base de datos
     async register(req, res,next){
 
         try{
@@ -46,8 +50,76 @@ module.exports={
             });          
         }
 
+    },
+
+    async login(req, res,next){
+        try{
+
+            const email= req.body.email;
+            const password=req.body.password;
+            const myUser=await User.findByEmail(email);//me trae todo un objeto
+
+            if(!myUser){
+                return res.status(401).json({
+                    success:false,
+                    message:"el email no fue encontrado"
+                })
+            }
+
+            const isPasswordValid=await bcript.compare(password,myUser.password);
+            
+            if(isPasswordValid){
+                const token=jwt.sign({
+                    id:myUser.id,
+                    email:myUser.email
+                },keys.secrerOrKey,{
+                    //expiresIn:
+                })
+
+                const data={
+                    id:myUser.id,
+                    name:myUser.name,
+                    lasname:myUser.lasname,
+                    email:myUser.email,
+                    phone:myUser.phone,
+                    image:myUser.image,
+                    session_token:`JWT ${token}`
+
+                    
+                };
+
+                return res.status(201).json({
+                    success:true,
+                    message:'el usuario ha sido autenticado',
+                    data:data
+                });
+
+
+            }
+            else{
+                return res.status(401).json({
+                    success:false,
+                    message:'constraseña incorrecta',
+                
+                });
+
+
+            }
+
+
+        }catch(error){
+            console.error(`Error:${error}`);
+            return res.status(501).json({
+                success:false,
+                message:'Error al loguearse',
+                error:error   
+
+        });
+
     }
 
-    //registrar usuarios en la base de datos
+    
+
+    }
 
 }
